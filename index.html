@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff4d88;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+        }
+
+        .mobile-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .mobile-card img {
+            width: 250px; /* Increased Image Size */
+            height: auto;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .mobile-details {
+            flex: 1;
+        }
+
+        .mobile-details p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mobile Store</h1>
+    <div class="container" id="mobileList"></div>
+
+    <script>
+        async function fetchMobiles() {
+            const response = await fetch('data.json'); // Fetch JSON data
+            const data = await response.json();
+
+            const container = document.getElementById('mobileList');
+            container.innerHTML = "";
+
+            data.mobiles.forEach(mobile => {
+                const mobileCard = document.createElement('div');
+                mobileCard.classList.add('mobile-card');
+                mobileCard.innerHTML = `
+                    <img src="${mobile.image}" alt="${mobile.name}">
+                    <div class="mobile-details">
+                        <p><strong>Brand:</strong> ${mobile.brand}</p>
+                        <p><strong>Model:</strong> ${mobile.name}</p>
+                        <p><strong>Price:</strong> ${mobile.price}</p>
+                        <p><strong>Rating:</strong> ${mobile.rating}</p>
+                        <p><strong>RAM:</strong> ${mobile.ram}</p>
+                        <p><strong>Storage:</strong> ${mobile.storage}</p>
+                        <p><strong>Camera:</strong> ${mobile.camera}</p>
+                        <p><strong>Battery:</strong> ${mobile.battery}</p>
+                        <p><strong>Display:</strong> ${mobile.display}</p>
+                    </div>
+                `;
+                container.appendChild(mobileCard);
+            });
+        }
+
+        fetchMobiles();
+    </script>
+
+</body>
+</html>
